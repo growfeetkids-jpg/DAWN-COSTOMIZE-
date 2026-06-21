@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "sizing_table": "<p>Consultez le guide complet sur la page Tailles.</p>"
+      },
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Est-ce que la pointure correspond à ma taille habituelle ?",
+            "answer": "Oui, nos modèles taillent normalement. Consultez notre guide des tailles pour vérifier votre correspondance exacte."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Quelle est votre politique de retour ?",
+            "answer": "Vous disposez de 30 jours pour retourner un article non porté, dans son emballage d'origine."
+          }
+        }
+      },
+      "block_order": ["faq1", "faq2"]
+    }
+  },
+  "order": ["main"]
+}

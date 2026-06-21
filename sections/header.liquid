@@ -1,0 +1,133 @@
+{%- comment -%}
+  Section: header.liquid
+  Navigation simple, 2 niveaux max — Femme / Homme / Anti-Dérapant + recherche/panier.
+{%- endcomment -%}
+
+<header class="qt-header">
+  <div class="qt-container qt-header__inner">
+    <a href="{{ routes.root_url }}" class="qt-header__logo">
+      {{ section.settings.shop_name | default: shop.name }}
+    </a>
+
+    <nav class="qt-header__nav" aria-label="Navigation principale">
+      {% for link in section.settings.main_menu.links %}
+        <a href="{{ link.url }}" class="qt-header__nav-link">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="qt-header__actions">
+      <a href="{{ routes.search_url }}" class="qt-header__icon-btn" aria-label="Rechercher">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="{{ routes.account_url }}" class="qt-header__icon-btn" aria-label="Compte">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="qt-header__icon-btn qt-header__cart" aria-label="Panier ({{ cart.item_count }} article(s))">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="qt-header__cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+.qt-header {
+  background: var(--qt-cream);
+  border-bottom: 1px solid var(--qt-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.qt-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 18px;
+  gap: 24px;
+}
+.qt-header__logo {
+  font-family: var(--qt-font-heading);
+  font-size: 1.4rem;
+  color: var(--qt-petrol);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.qt-header__nav {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+  justify-content: center;
+}
+.qt-header__nav-link {
+  font-size: 0.92rem;
+  color: var(--qt-ink);
+  position: relative;
+  padding-block: 4px;
+}
+.qt-header__nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--qt-terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--qt-duration) var(--qt-ease);
+}
+.qt-header__nav-link:hover::after { transform: scaleX(1); }
+
+.qt-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.qt-header__icon-btn {
+  position: relative;
+  color: var(--qt-petrol);
+  display: flex;
+}
+.qt-header__cart-count {
+  position: absolute;
+  top: -6px; right: -8px;
+  background: var(--qt-terracotta);
+  color: var(--qt-white);
+  font-size: 0.65rem;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+@media (max-width: 989px) {
+  .qt-header__nav { display: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "En-tête",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shop_name",
+      "label": "Nom affiché"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Menu principal",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

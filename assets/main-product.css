@@ -1,0 +1,124 @@
+/* =========================================================
+   QUIETTA — Product page styles
+   ========================================================= */
+
+.qt-product__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.qt-product__gallery .qt-placeholder {
+  margin-bottom: 12px;
+  min-height: 420px;
+}
+.qt-product__thumbs .qt-placeholder {
+  min-height: 90px;
+}
+
+.qt-product__price {
+  font-size: 1.3rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.qt-product__option {
+  margin-bottom: 20px;
+}
+.qt-product__option-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--qt-petrol);
+}
+.qt-product__option-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.qt-swatch {
+  padding: 8px 16px;
+  border: 1px solid var(--qt-border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: var(--qt-white);
+  color: var(--qt-ink);
+  transition: border-color var(--qt-duration) var(--qt-ease), background var(--qt-duration) var(--qt-ease);
+}
+.qt-swatch:hover,
+.qt-swatch[aria-pressed="true"] {
+  border-color: var(--qt-terracotta);
+  background: var(--qt-terracotta);
+  color: var(--qt-white);
+}
+
+.qt-product__atc {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.qt-product__sizing {
+  margin-top: 28px;
+  border-top: 1px solid var(--qt-border);
+  padding-top: 16px;
+}
+.qt-product__sizing summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--qt-petrol);
+}
+
+.qt-product__description {
+  margin-top: 24px;
+  font-size: 0.95rem;
+}
+
+.qt-product__faq {
+  margin-top: 32px;
+  border-top: 1px solid var(--qt-border);
+  padding-top: 24px;
+}
+.qt-faq-item {
+  border-bottom: 1px solid var(--qt-border);
+  padding-block: 14px;
+}
+.qt-faq-item summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--qt-ink);
+}
+.qt-faq-item p {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Sticky add-to-cart — mobile conversion mechanism */
+.qt-sticky-atc {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--qt-white);
+  border-top: 1px solid var(--qt-border);
+  padding-block: 12px;
+  z-index: 90;
+  display: none;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
+.qt-sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.qt-sticky-atc__inner span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--qt-petrol);
+}
+
+@media (max-width: 989px) {
+  .qt-product__inner { grid-template-columns: 1fr; }
+  .qt-sticky-atc.is-visible { display: block; }
+}

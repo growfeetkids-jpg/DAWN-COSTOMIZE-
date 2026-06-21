@@ -1,0 +1,48 @@
+{%- comment -%}
+  Section: announcement-bar.liquid
+  Recrée le mécanisme CRO de la barre de livraison progressive observée
+  chez le concurrent — implémentation 100% originale.
+{%- endcomment -%}
+
+<div class="qt-announce" data-threshold="{{ settings.free_shipping_threshold | default: 50 }}">
+  <div class="qt-container qt-announce__inner">
+    <p class="qt-announce__text">
+      {{ section.settings.message | default: 'Livraison gratuite dès 50$ d’achat' }}
+    </p>
+  </div>
+</div>
+
+{% stylesheet %}
+.qt-announce {
+  background: var(--qt-petrol);
+  color: var(--qt-white);
+}
+.qt-announce__inner {
+  padding-block: 10px;
+  text-align: center;
+}
+.qt-announce__text {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--qt-white);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "settings": [
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "Livraison gratuite dès 50$ d’achat"
+    }
+  ],
+  "presets": [
+    { "name": "Barre d'annonce" }
+  ]
+}
+{% endschema %}

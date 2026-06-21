@@ -1,0 +1,63 @@
+{%- comment -%}
+  Section: hero.liquid
+  Hero homepage — headline + CTA + placeholder visuel (image à venir via Higgsfield).
+{%- endcomment -%}
+
+<section class="qt-hero qt-section">
+  <div class="qt-container qt-hero__inner">
+    <div class="qt-hero__content">
+      <h1>{{ section.settings.headline | default: 'Le confort qui ne se voit pas. Le style qui ne s’oublie pas.' }}</h1>
+      <p class="qt-hero__subtitle">
+        {{ section.settings.subtitle | default: 'Des chaussures pensées pour celles et ceux qui sont debout toute la journée — sans jamais sacrifier l’allure.' }}
+      </p>
+      <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="qt-btn qt-btn--primary">
+        {{ section.settings.cta_label | default: 'Découvrir la collection' }}
+      </a>
+    </div>
+
+    <div class="qt-hero__media">
+      {% render 'image-placeholder', ratio: '4/5', label: 'Image hero — lifestyle Quietta (à générer)', rounded: true %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.qt-hero__content { max-width: 480px; }
+.qt-hero__subtitle {
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+}
+.qt-hero__media .qt-placeholder {
+  border-radius: var(--qt-radius-lg);
+  min-height: 360px;
+}
+
+@media (max-width: 989px) {
+  .qt-hero__inner {
+    grid-template-columns: 1fr;
+  }
+  .qt-hero__content { max-width: none; order: 2; }
+  .qt-hero__media { order: 1; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "headline", "label": "Titre" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre" },
+    { "type": "text", "id": "cta_label", "label": "Texte du bouton" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton" }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}

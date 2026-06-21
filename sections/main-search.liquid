@@ -1,0 +1,45 @@
+{%- comment -%}
+  Section: main-search.liquid
+{%- endcomment -%}
+
+<section class="qt-section">
+  <div class="qt-container">
+    <h1>Recherche</h1>
+    {% form 'search', class: 'qt-search-form' %}
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Que cherchez-vous ?">
+      <button type="submit" class="qt-btn qt-btn--primary">Rechercher</button>
+    {% endform %}
+
+    {% if search.performed %}
+      <div class="qt-grid qt-grid--4">
+        {% for item in search.results %}
+          <a href="{{ item.url }}" class="qt-product-card">
+            {% render 'image-placeholder', ratio: '3/4', label: item.title, rounded: true %}
+            <h3>{{ item.title }}</h3>
+          </a>
+        {% else %}
+          <p>Aucun résultat pour "{{ search.terms }}".</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-search-form {
+  display: flex;
+  gap: 10px;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.qt-search-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--qt-border);
+}
+{% endstylesheet %}
+
+{% schema %}
+{ "name": "Recherche", "settings": [] }
+{% endschema %}

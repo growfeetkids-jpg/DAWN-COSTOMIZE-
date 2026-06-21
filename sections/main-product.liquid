@@ -1,0 +1,97 @@
+{%- comment -%}
+  Section: main-product.liquid
+  Recrée les mécanismes CRO observés en Phase 3 :
+  - Galerie produit (placeholders en attendant Higgsfield)
+  - Sélecteur couleur / taille / largeur
+  - Tableau des tailles intégré
+  - Add-to-cart collant en mobile
+{%- endcomment -%}
+
+{{ 'main-product.css' | asset_url | stylesheet_tag }}
+
+<section class="qt-product qt-section">
+  <div class="qt-container qt-product__inner">
+
+    <div class="qt-product__gallery">
+      {% render 'image-placeholder', ratio: '1/1', label: product.title | append: ' — photo principale (à générer)', rounded: true %}
+      <div class="qt-product__thumbs qt-grid qt-grid--4">
+        {% for i in (1..4) %}
+          {% render 'image-placeholder', ratio: '1/1', label: 'Vue ' | append: i, rounded: true %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="qt-product__info">
+      <h1>{{ product.title }}</h1>
+      <p class="qt-product__price">{{ product.price | money }}</p>
+
+      {%- form 'product', product, id: 'product-form', class: 'qt-product__form' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {% for option in product.options_with_values %}
+          <div class="qt-product__option">
+            <label class="qt-product__option-label">{{ option.name }}</label>
+            <div class="qt-product__option-values">
+              {% for value in option.values %}
+                <button type="button" class="qt-swatch" data-option-value="{{ value | escape }}">{{ value }}</button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="qt-btn qt-btn--primary qt-product__atc">
+          {% if product.available %}Ajouter au panier{% else %}Épuisé{% endif %}
+        </button>
+      {%- endform -%}
+
+      <details class="qt-product__sizing">
+        <summary>Guide des tailles</summary>
+        <div class="qt-product__sizing-content">
+          {{ section.settings.sizing_table }}
+        </div>
+      </details>
+
+      <div class="qt-product__description">
+        {{ product.description }}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="qt-product__faq">
+          <h3>Questions fréquentes</h3>
+          {% for block in section.blocks %}
+            <details class="qt-faq-item" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.question }}</summary>
+              <p>{{ block.settings.answer }}</p>
+            </details>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="qt-sticky-atc" id="qt-sticky-atc">
+  <div class="qt-container qt-sticky-atc__inner">
+    <span>{{ product.title }} — {{ product.price | money }}</span>
+    <button type="submit" form="product-form" class="qt-btn qt-btn--primary">Ajouter au panier</button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Produit",
+  "settings": [
+    { "type": "richtext", "id": "sizing_table", "label": "Tableau des tailles" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question FAQ",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Réponse" }
+      ]
+    }
+  ]
+}
+{% endschema %}

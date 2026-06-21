@@ -1,0 +1,25 @@
+{
+  "general": {
+    "search": {
+      "search": "Rechercher"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "on_sale": "En solde"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Panier",
+      "empty": "Votre panier est vide",
+      "checkout": "Passer la commande"
+    }
+  },
+  "newsletter": {
+    "label": "Email",
+    "success": "Merci pour votre inscription !"
+  }
+}

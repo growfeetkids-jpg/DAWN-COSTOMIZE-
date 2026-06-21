@@ -1,0 +1,128 @@
+{%- comment -%}
+  Section: footer.liquid
+{%- endcomment -%}
+
+<footer class="qt-footer">
+  <div class="qt-container qt-footer__inner">
+    <div class="qt-footer__col">
+      <h3 class="qt-footer__logo">{{ shop.name }}</h3>
+      <p class="qt-footer__tagline">{{ section.settings.tagline | default: 'Confort discret, style durable.' }}</p>
+    </div>
+
+    <div class="qt-footer__col">
+      <h4>Boutique</h4>
+      {% for link in section.settings.footer_menu.links %}
+        <a href="{{ link.url }}" class="qt-footer__link">{{ link.title }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="qt-footer__col">
+      <h4>Service client</h4>
+      <a href="{{ section.settings.sizing_url | default: '/pages/guide-des-tailles' }}" class="qt-footer__link">Guide des tailles</a>
+      <a href="{{ section.settings.contact_url | default: '/pages/contact' }}" class="qt-footer__link">Contact</a>
+    </div>
+
+    <div class="qt-footer__col">
+      <h4>Restez informé</h4>
+      {% form 'customer' %}
+        <div class="qt-footer__newsletter">
+          <input type="email" name="contact[email]" placeholder="Votre email" required>
+          <button type="submit" class="qt-btn qt-btn--accent">S'inscrire</button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="qt-container qt-footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+    <div class="qt-footer__policies">
+      {% for policy in shop.policies %}
+        <a href="{{ policy.url }}">{{ policy.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+.qt-footer {
+  background: var(--qt-petrol);
+  color: var(--qt-cream);
+  margin-top: var(--qt-section-spacing);
+}
+.qt-footer__inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+  gap: 32px;
+  padding-block: 64px 40px;
+}
+.qt-footer__logo {
+  color: var(--qt-cream);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.qt-footer__tagline {
+  color: rgba(242,234,216,0.7);
+  font-size: 0.88rem;
+}
+.qt-footer__col h4 {
+  font-family: var(--qt-font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--qt-cream);
+  margin-bottom: 14px;
+}
+.qt-footer__link {
+  display: block;
+  color: rgba(242,234,216,0.75);
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+}
+.qt-footer__link:hover { color: var(--qt-cream); }
+
+.qt-footer__newsletter {
+  display: flex;
+  gap: 8px;
+}
+.qt-footer__newsletter input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(242,234,216,0.3);
+  background: transparent;
+  color: var(--qt-cream);
+  font-size: 0.85rem;
+}
+.qt-footer__newsletter input::placeholder { color: rgba(242,234,216,0.5); }
+
+.qt-footer__bottom {
+  border-top: 1px solid rgba(242,234,216,0.15);
+  padding-block: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: rgba(242,234,216,0.6);
+}
+.qt-footer__policies a {
+  margin-left: 16px;
+  color: rgba(242,234,216,0.6);
+}
+
+@media (max-width: 749px) {
+  .qt-footer__inner { grid-template-columns: 1fr 1fr; }
+  .qt-footer__bottom { flex-direction: column; gap: 10px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline" },
+    { "type": "link_list", "id": "footer_menu", "label": "Menu pied de page" },
+    { "type": "url", "id": "sizing_url", "label": "Lien guide des tailles" },
+    { "type": "url", "id": "contact_url", "label": "Lien contact" }
+  ]
+}
+{% endschema %}

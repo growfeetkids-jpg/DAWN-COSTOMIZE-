@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "headline": "Le confort qui ne se voit pas. Le style qui ne s’oublie pas.",
+        "subtitle": "Des chaussures pensées pour celles et ceux qui sont debout toute la journée — sans jamais sacrifier l’allure.",
+        "cta_label": "Découvrir la collection",
+        "cta_url": "/collections/all"
+      }
+    },
+    "featured_collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "women": {
+          "type": "collection",
+          "settings": {
+            "title": "Femme",
+            "collection_url": "/collections/women",
+            "image_label": "Lifestyle Femme (à générer)"
+          }
+        },
+        "men": {
+          "type": "collection",
+          "settings": {
+            "title": "Homme",
+            "collection_url": "/collections/men",
+            "image_label": "Lifestyle Homme (à générer)"
+          }
+        },
+        "slip_resistant": {
+          "type": "collection",
+          "settings": {
+            "title": "Anti-Dérapant",
+            "collection_url": "/collections/slip-resistant",
+            "image_label": "Anti-Dérapant (à générer)"
+          }
+        }
+      },
+      "block_order": ["women", "men", "slip_resistant"]
+    },
+    "features": {
+      "type": "features",
+      "settings": {
+        "title": "Pourquoi Quietta"
+      },
+      "blocks": {
+        "true_size": {
+          "type": "feature",
+          "settings": {
+            "label": "Vraie pointure",
+            "description": "Coupe fidèle à la taille, vérifiée par nos guides détaillés."
+          }
+        },
+        "mesh": {
+          "type": "feature",
+          "settings": {
+            "label": "Mesh respirant",
+            "description": "Une tige technique qui laisse respirer le pied toute la journée."
+          }
+        },
+        "memory_foam": {
+          "type": "feature",
+          "settings": {
+            "label": "Semelle mémoire",
+            "description": "Une mousse qui épouse la forme du pied à chaque pas."
+          }
+        },
+        "grip": {
+          "type": "feature",
+          "settings": {
+            "label": "Quietta Grip™",
+            "description": "Une semelle texturée conçue pour les sols difficiles."
+          }
+        }
+      },
+      "block_order": ["true_size", "mesh", "memory_foam", "grip"]
+    }
+  },
+  "order": ["hero", "featured_collections", "features"]
+}

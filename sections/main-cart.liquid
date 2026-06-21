@@ -1,0 +1,61 @@
+{%- comment -%}
+  Section: main-cart.liquid
+{%- endcomment -%}
+
+<section class="qt-section">
+  <div class="qt-container">
+    <h1>Votre panier</h1>
+
+    {% if cart.item_count == 0 %}
+      <p>Votre panier est vide.</p>
+      <a href="/collections/all" class="qt-btn qt-btn--primary">Continuer mes achats</a>
+    {% else %}
+      <p class="qt-cart-shipping-note">
+        {% assign remaining = settings.free_shipping_threshold | times: 100 | minus: cart.total_price %}
+        {% if remaining > 0 %}
+          Plus que {{ remaining | money }} pour la livraison gratuite !
+        {% else %}
+          Livraison gratuite débloquée ✓
+        {% endif %}
+      </p>
+
+      {% form 'cart', cart %}
+        {% for item in cart.items %}
+          <div class="qt-cart-line">
+            <span>{{ item.product.title }} × {{ item.quantity }}</span>
+            <span>{{ item.line_price | money }}</span>
+          </div>
+        {% endfor %}
+
+        <div class="qt-cart-total">
+          <strong>Total : {{ cart.total_price | money }}</strong>
+        </div>
+
+        <button type="submit" name="checkout" class="qt-btn qt-btn--primary">Passer la commande</button>
+      {% endform %}
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-cart-shipping-note {
+  font-size: 0.9rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+}
+.qt-cart-line {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--qt-border);
+}
+.qt-cart-total {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+{% endstylesheet %}
+
+{% schema %}
+{ "name": "Panier", "settings": [] }
+{% endschema %}

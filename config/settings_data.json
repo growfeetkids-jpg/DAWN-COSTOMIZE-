@@ -1,0 +1,16 @@
+{
+  "current": {
+    "color_terracotta": "#C1633D",
+    "color_cream": "#F2EAD8",
+    "color_petrol": "#2C4A52",
+    "color_white": "#FFFFFF",
+    "color_placeholder_bg": "#E4DCCB",
+    "color_placeholder_text": "#A89A7F",
+    "font_heading": "fraunces_n4",
+    "font_body": "work_sans_n4",
+    "page_width": 1440,
+    "spacing_sections": 80,
+    "cart_type_drawer": true,
+    "free_shipping_threshold": 50
+  }
+}

@@ -1,0 +1,66 @@
+{%- comment -%}
+  Section: featured-collections.liquid
+  Présente les 3 collections clés identifiées en Phase 1-2 :
+  Femme / Homme / Anti-Dérapant (segment à forte intention).
+{%- endcomment -%}
+
+<section class="qt-collections qt-section">
+  <div class="qt-container">
+    <div class="qt-grid qt-grid--3">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.collection_url }}" class="qt-collection-card" {{ block.shopify_attributes }}>
+          {% render 'image-placeholder', ratio: '3/4', label: block.settings.image_label, rounded: true %}
+          <h3 class="qt-collection-card__title">{{ block.settings.title }}</h3>
+          <span class="qt-collection-card__cta">Découvrir →</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-collection-card {
+  display: block;
+  text-align: left;
+}
+.qt-collection-card__title {
+  margin-top: 16px;
+  margin-bottom: 4px;
+  font-size: 1.2rem;
+}
+.qt-collection-card__cta {
+  font-size: 0.85rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+}
+.qt-collection-card:hover .qt-placeholder {
+  filter: brightness(0.96);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collections en avant",
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre affiché" },
+        { "type": "url", "id": "collection_url", "label": "Lien" },
+        { "type": "text", "id": "image_label", "label": "Label du placeholder image" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collections en avant",
+      "blocks": [
+        { "type": "collection", "settings": { "title": "Femme", "image_label": "Lifestyle Femme (à générer)" } },
+        { "type": "collection", "settings": { "title": "Homme", "image_label": "Lifestyle Homme (à générer)" } },
+        { "type": "collection", "settings": { "title": "Anti-Dérapant", "image_label": "Anti-Dérapant (à générer)" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
