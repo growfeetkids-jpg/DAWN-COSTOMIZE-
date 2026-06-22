@@ -17,7 +17,12 @@
     </div>
 
     <div class="qt-about__media">
-      {% render 'image-placeholder', ratio: '4/5', label: 'Image brand story (à générer)', rounded: true %}
+      <img
+        src="https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=800"
+        alt="L'histoire de Quietta — artisanat et confort"
+        loading="lazy"
+        class="qt-about__img"
+        width="800" height="1000">
     </div>
   </div>
 </section>
@@ -43,8 +48,12 @@
 .qt-about__text {
   margin: 16px 0 28px;
 }
-.qt-about__media .qt-placeholder {
-  min-height: 400px;
+.qt-about__img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: var(--qt-radius-lg);
+  display: block;
 }
 
 @media (max-width: 989px) {

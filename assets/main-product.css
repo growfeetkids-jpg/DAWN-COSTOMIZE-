@@ -9,13 +9,23 @@
   align-items: start;
 }
 
-.qt-product__gallery .qt-placeholder {
+.qt-product__main-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--qt-radius-lg);
   margin-bottom: 12px;
-  min-height: 420px;
 }
-.qt-product__thumbs .qt-placeholder {
-  min-height: 90px;
+.qt-product__thumb-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--qt-radius-sm);
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity var(--qt-duration) var(--qt-ease);
 }
+.qt-product__thumb-img:hover { opacity: 1; }
 
 .qt-product__price {
   font-size: 1.3rem;

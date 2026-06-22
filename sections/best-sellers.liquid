@@ -14,9 +14,19 @@
 
     <div class="qt-grid qt-grid--4">
       {% assign featured = section.settings.collection.products | default: collections.all.products %}
+      {% assign pexels_ids = "4046109,1240892,1464453,2003134" | split: "," %}
       {% for product in featured limit: section.settings.products_count %}
+        {%- assign pid = pexels_ids[forloop.index0] | default: "2529148" -%}
         <a href="{{ product.url }}" class="qt-product-card">
-          {% render 'image-placeholder', ratio: '3/4', label: product.title, rounded: true %}
+          <div class="qt-product-card__media">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 600 }}"
+                   alt="{{ product.title }}" loading="lazy" class="qt-product-card__img" width="600" height="800">
+            {% else %}
+              <img src="https://images.pexels.com/photos/{{ pid }}/pexels-photo-{{ pid }}.jpeg?auto=compress&cs=tinysrgb&w=600"
+                   alt="{{ product.title }}" loading="lazy" class="qt-product-card__img" width="600" height="800">
+            {% endif %}
+          </div>
           {% if product.compare_at_price > product.price %}
             <span class="qt-product-card__badge">Promo</span>
           {% endif %}
@@ -61,8 +71,20 @@
   padding: 4px 10px;
   border-radius: 999px;
 }
-.qt-product-card__title {
-  margin-top: 14px;
+.qt-product-card__media {
+  overflow: hidden;
+  border-radius: var(--qt-radius-md);
+}
+.qt-product-card__img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--qt-duration) var(--qt-ease);
+}
+.qt-product-card:hover .qt-product-card__img {
+  transform: scale(1.03);
+}
   margin-bottom: 4px;
   font-size: 0.98rem;
 }

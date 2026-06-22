@@ -13,12 +13,25 @@
   <div class="qt-container qt-product__inner">
 
     <div class="qt-product__gallery">
-      {% render 'image-placeholder', ratio: '1/1', label: product.title | append: ' — photo principale (à générer)', rounded: true %}
-      <div class="qt-product__thumbs qt-grid qt-grid--4">
-        {% for i in (1..4) %}
-          {% render 'image-placeholder', ratio: '1/1', label: 'Vue ' | append: i, rounded: true %}
-        {% endfor %}
-      </div>
+      {% if product.images.size > 0 %}
+        <img src="{{ product.images[0] | image_url: width: 900 }}"
+             alt="{{ product.title }}" loading="eager" class="qt-product__main-img" width="900" height="900">
+        <div class="qt-product__thumbs qt-grid qt-grid--4">
+          {% for image in product.images limit: 4 %}
+            <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title }}" loading="lazy" class="qt-product__thumb-img" width="200" height="200">
+          {% endfor %}
+        </div>
+      {% else %}
+        {%- assign gallery_ids = "4046109,2529148,1464453,1598505" | split: "," -%}
+        <img src="https://images.pexels.com/photos/4046109/pexels-photo-4046109.jpeg?auto=compress&cs=tinysrgb&w=900"
+             alt="{{ product.title }}" loading="eager" class="qt-product__main-img" width="900" height="900">
+        <div class="qt-product__thumbs qt-grid qt-grid--4">
+          {% for pid in gallery_ids %}
+            <img src="https://images.pexels.com/photos/{{ pid }}/pexels-photo-{{ pid }}.jpeg?auto=compress&cs=tinysrgb&w=200"
+                 alt="{{ product.title }} vue {{ forloop.index }}" loading="lazy" class="qt-product__thumb-img" width="200" height="200">
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
 
     <div class="qt-product__info">

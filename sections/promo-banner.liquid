@@ -5,7 +5,12 @@
 
 <section class="qt-promo-banner">
   <div class="qt-promo-banner__media">
-    {% render 'image-placeholder', ratio: '21/9', label: 'Banner promo (à générer via Higgsfield)' %}
+    <img
+      src="https://images.pexels.com/photos/1599991/pexels-photo-1599991.jpeg?auto=compress&cs=tinysrgb&w=1400"
+      alt="Collection Quietta — confort et style"
+      loading="lazy"
+      class="qt-promo-banner__img"
+      width="1400" height="600">
   </div>
   <div class="qt-promo-banner__overlay">
     <div class="qt-container qt-promo-banner__content">
@@ -24,8 +29,11 @@
   position: relative;
   overflow: hidden;
 }
-.qt-promo-banner__media .qt-placeholder {
+.qt-promo-banner__img {
+  width: 100%;
   min-height: 420px;
+  object-fit: cover;
+  display: block;
 }
 .qt-promo-banner__overlay {
   position: absolute;

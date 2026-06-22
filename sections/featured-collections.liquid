@@ -8,8 +8,18 @@
   <div class="qt-container">
     <div class="qt-grid qt-grid--3">
       {% for block in section.blocks %}
+        {%- assign block_index = forloop.index0 -%}
         <a href="{{ block.settings.collection_url }}" class="qt-collection-card" {{ block.shopify_attributes }}>
-          {% render 'image-placeholder', ratio: '3/4', label: block.settings.image_label, rounded: true %}
+          {%- if block_index == 0 -%}
+            <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="{{ block.settings.title }} — Quietta" loading="lazy" class="qt-collection-card__img" width="700" height="933">
+          {%- elsif block_index == 1 -%}
+            <img src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="{{ block.settings.title }} — Quietta" loading="lazy" class="qt-collection-card__img" width="700" height="933">
+          {%- else -%}
+            <img src="https://images.pexels.com/photos/3680035/pexels-photo-3680035.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="{{ block.settings.title }} — Quietta" loading="lazy" class="qt-collection-card__img" width="700" height="933">
+          {%- endif -%}
           <h3 class="qt-collection-card__title">{{ block.settings.title }}</h3>
           <span class="qt-collection-card__cta">Découvrir →</span>
         </a>
@@ -33,8 +43,16 @@
   color: var(--qt-terracotta);
   font-weight: 600;
 }
-.qt-collection-card:hover .qt-placeholder {
-  filter: brightness(0.96);
+.qt-collection-card__img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: var(--qt-radius-lg);
+  display: block;
+  transition: transform var(--qt-duration) var(--qt-ease);
+}
+.qt-collection-card:hover .qt-collection-card__img {
+  transform: scale(1.02);
 }
 {% endstylesheet %}
 

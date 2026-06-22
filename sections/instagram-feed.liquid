@@ -15,10 +15,13 @@
       {% endif %}
     </div>
 
+    {%- assign insta_ids = "1040173,769289,1599131,2048966,2379005,1598507" | split: "," -%}
     <div class="qt-instagram__grid">
       {% for block in section.blocks %}
+        {%- assign pid = insta_ids[forloop.index0] | default: "2529148" -%}
         <a href="{{ block.settings.post_url | default: '#' }}" target="_blank" rel="noopener" class="qt-instagram__item" {{ block.shopify_attributes }}>
-          {% render 'image-placeholder', ratio: '1/1', label: 'Post Instagram (à ajouter)' %}
+          <img src="https://images.pexels.com/photos/{{ pid }}/pexels-photo-{{ pid }}.jpeg?auto=compress&cs=tinysrgb&w=400"
+               alt="Quietta lifestyle {{ forloop.index }}" loading="lazy" class="qt-instagram__photo" width="400" height="400">
           <div class="qt-instagram__overlay">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="1.6"/><circle cx="12" cy="12" r="5" stroke="white" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="white"/></svg>
           </div>
@@ -61,11 +64,12 @@
   opacity: 0;
   transition: all var(--qt-duration) var(--qt-ease);
 }
-.qt-instagram__item:hover .qt-instagram__overlay {
-  background: rgba(44,74,82,0.45);
-  opacity: 1;
+.qt-instagram__photo {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  display: block;
 }
-
 @media (max-width: 749px) {
   .qt-instagram__grid { grid-template-columns: repeat(3, 1fr); }
 }
