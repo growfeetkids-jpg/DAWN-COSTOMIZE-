@@ -1,0 +1,103 @@
+{%- comment -%}
+  Section: instagram-feed.liquid
+  Feed Instagram / UGC — grille de 6 photos avec placeholders en attendant images réelles.
+  En production: remplacer les placeholders par balises <img> avec les URLs Instagram/Higgsfield.
+{%- endcomment -%}
+
+<section class="qt-section qt-instagram">
+  <div class="qt-container">
+    <div class="qt-instagram__header">
+      <h2>{{ section.settings.title | default: 'La communauté Quietta' }}</h2>
+      {% if section.settings.handle != blank %}
+        <a href="https://instagram.com/{{ section.settings.handle }}" target="_blank" rel="noopener" class="qt-instagram__handle">
+          @{{ section.settings.handle }} →
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="qt-instagram__grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.post_url | default: '#' }}" target="_blank" rel="noopener" class="qt-instagram__item" {{ block.shopify_attributes }}>
+          {% render 'image-placeholder', ratio: '1/1', label: 'Post Instagram (à ajouter)' %}
+          <div class="qt-instagram__overlay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="1.6"/><circle cx="12" cy="12" r="5" stroke="white" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="white"/></svg>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-instagram__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.qt-instagram__handle {
+  font-size: 0.88rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+}
+.qt-instagram__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.qt-instagram__item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--qt-radius-sm);
+}
+.qt-instagram__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(44,74,82,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all var(--qt-duration) var(--qt-ease);
+}
+.qt-instagram__item:hover .qt-instagram__overlay {
+  background: rgba(44,74,82,0.45);
+  opacity: 1;
+}
+
+@media (max-width: 749px) {
+  .qt-instagram__grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 449px) {
+  .qt-instagram__grid { grid-template-columns: repeat(2, 1fr); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Instagram / UGC",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "La communauté Quietta" },
+    { "type": "text", "id": "handle", "label": "Handle Instagram (sans @)" }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        { "type": "url", "id": "post_url", "label": "Lien du post Instagram" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram / UGC",
+      "blocks": [
+        { "type": "post" }, { "type": "post" }, { "type": "post" },
+        { "type": "post" }, { "type": "post" }, { "type": "post" }
+      ]
+    }
+  ]
+}
+{% endschema %}

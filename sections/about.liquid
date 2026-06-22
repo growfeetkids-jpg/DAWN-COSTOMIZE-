@@ -1,0 +1,73 @@
+{%- comment -%}
+  Section: about.liquid
+  Section "Notre histoire" — texte gauche + image droite (ou inversé).
+{%- endcomment -%}
+
+<section class="qt-section qt-about">
+  <div class="qt-container qt-about__inner {% if section.settings.image_right %}qt-about__inner--reversed{% endif %}">
+    <div class="qt-about__content">
+      <p class="qt-about__eyebrow">{{ section.settings.eyebrow | default: 'Notre histoire' }}</p>
+      <h2>{{ section.settings.title | default: 'Née d'un constat simple.' }}</h2>
+      <div class="qt-about__text">
+        {{ section.settings.text | default: '<p>Quietta est né d'une question simple : pourquoi une chaussure vraiment confortable doit-elle être moche ? On a voulu changer ça — un produit discret, soigné, qui se fait oublier sur le pied sans jamais sacrifier le style.</p><p>Chaque modèle est pensé pour celles et ceux qui sont debout une grande partie de la journée. Notre approche : une technologie de confort sérieuse, dans un design discret qui s'adapte à toutes les tenues.</p>' }}
+      </div>
+      <a href="{{ section.settings.cta_url | default: '/pages/a-propos' }}" class="qt-btn qt-btn--secondary">
+        {{ section.settings.cta_label | default: 'En savoir plus' }}
+      </a>
+    </div>
+
+    <div class="qt-about__media">
+      {% render 'image-placeholder', ratio: '4/5', label: 'Image brand story (à générer)', rounded: true %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.qt-about__inner--reversed .qt-about__content { order: 2; }
+.qt-about__inner--reversed .qt-about__media  { order: 1; }
+
+.qt-about__eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--qt-terracotta);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.qt-about__text {
+  margin: 16px 0 28px;
+}
+.qt-about__media .qt-placeholder {
+  min-height: 400px;
+}
+
+@media (max-width: 989px) {
+  .qt-about__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .qt-about__inner--reversed .qt-about__content,
+  .qt-about__inner--reversed .qt-about__media { order: unset; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Notre histoire",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit texte au-dessus" },
+    { "type": "text", "id": "title", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "text", "id": "cta_label", "label": "Texte bouton" },
+    { "type": "url", "id": "cta_url", "label": "Lien bouton" },
+    { "type": "checkbox", "id": "image_right", "label": "Image à droite", "default": true }
+  ],
+  "presets": [{ "name": "Notre histoire" }]
+}
+{% endschema %}

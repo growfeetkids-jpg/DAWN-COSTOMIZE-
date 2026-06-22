@@ -3,79 +3,120 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "headline": "Le confort qui ne se voit pas. Le style qui ne s’oublie pas.",
-        "subtitle": "Des chaussures pensées pour celles et ceux qui sont debout toute la journée — sans jamais sacrifier l’allure.",
+        "headline": "Le confort qui ne se voit pas. Le style qui ne s'oublie pas.",
+        "subtitle": "Des chaussures pensées pour celles et ceux qui sont debout toute la journée — sans jamais sacrifier l'allure.",
         "cta_label": "Découvrir la collection",
         "cta_url": "/collections/all"
       }
     },
+    "trust_badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "icon": "delivery", "title": "Livraison gratuite", "subtitle": "Dès 50$ d'achat" } },
+        "b2": { "type": "badge", "settings": { "icon": "return", "title": "30 jours pour retourner", "subtitle": "Article non porté, sans question" } },
+        "b3": { "type": "badge", "settings": { "icon": "quality", "title": "Qualité testée", "subtitle": "Matériaux pour un usage intensif" } },
+        "b4": { "type": "badge", "settings": { "icon": "payment", "title": "Paiement sécurisé", "subtitle": "Visa, Mastercard, PayPal" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
     "featured_collections": {
       "type": "featured-collections",
       "blocks": {
-        "women": {
-          "type": "collection",
-          "settings": {
-            "title": "Femme",
-            "collection_url": "/collections/women",
-            "image_label": "Lifestyle Femme (à générer)"
-          }
-        },
-        "men": {
-          "type": "collection",
-          "settings": {
-            "title": "Homme",
-            "collection_url": "/collections/men",
-            "image_label": "Lifestyle Homme (à générer)"
-          }
-        },
-        "slip_resistant": {
-          "type": "collection",
-          "settings": {
-            "title": "Anti-Dérapant",
-            "collection_url": "/collections/slip-resistant",
-            "image_label": "Anti-Dérapant (à générer)"
-          }
-        }
+        "women": { "type": "collection", "settings": { "title": "Femme", "collection_url": "/collections/femme", "image_label": "Lifestyle Femme (à générer)" } },
+        "men":   { "type": "collection", "settings": { "title": "Homme", "collection_url": "/collections/homme", "image_label": "Lifestyle Homme (à générer)" } },
+        "grip":  { "type": "collection", "settings": { "title": "Anti-Dérapant", "collection_url": "/collections/anti-derapant", "image_label": "Anti-Dérapant (à générer)" } }
       },
-      "block_order": ["women", "men", "slip_resistant"]
+      "block_order": ["women", "men", "grip"]
+    },
+    "best_sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "title": "Nos best-sellers",
+        "products_count": 4,
+        "view_all_url": "/collections/all"
+      }
+    },
+    "promo_banner": {
+      "type": "promo-banner",
+      "settings": {
+        "eyebrow": "Collection Pro",
+        "headline": "Confort professionnel. Style discret.",
+        "subtitle": "Découvrez la collection Anti-Dérapant Quietta Grip™ — testée sur sols gras et humides.",
+        "cta_label": "Voir la collection",
+        "cta_url": "/collections/anti-derapant"
+      }
+    },
+    "before_after": {
+      "type": "before-after",
+      "settings": {
+        "title": "La différence Quietta",
+        "subtitle": "Ce que vous ressentez, pas seulement ce que vous voyez."
+      },
+      "blocks": {
+        "before": { "type": "side", "settings": { "label": "Chaussure ordinaire", "image_label": "Chaussure ordinaire (à générer)", "is_quietta": false, "points": "Semelle rigide | Pied fatigué dès midi | Peu d'amorti | Style générique" } },
+        "after":  { "type": "side", "settings": { "label": "Quietta", "image_label": "Quietta (à générer)", "is_quietta": true, "points": "Mousse mémoire sur mesure | Confort toute la journée | Quietta Grip™ | Style discret et raffiné" } }
+      },
+      "block_order": ["before", "after"]
     },
     "features": {
       "type": "features",
+      "settings": { "title": "Pourquoi Quietta" },
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "label": "Vraie pointure", "description": "Coupe fidèle à la taille, vérifiée par nos guides détaillés." } },
+        "f2": { "type": "feature", "settings": { "label": "Mesh respirant", "description": "Une tige technique qui laisse respirer le pied toute la journée." } },
+        "f3": { "type": "feature", "settings": { "label": "Semelle mémoire", "description": "Une mousse qui épouse la forme du pied à chaque pas." } },
+        "f4": { "type": "feature", "settings": { "label": "Quietta Grip™", "description": "Une semelle texturée conçue pour les sols difficiles." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    },
+    "about": {
+      "type": "about",
       "settings": {
-        "title": "Pourquoi Quietta"
+        "eyebrow": "Notre histoire",
+        "title": "Née d'un constat simple.",
+        "cta_label": "En savoir plus",
+        "cta_url": "/pages/a-propos",
+        "image_right": true
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Questions fréquentes",
+        "subtitle": "Tout ce que vous voulez savoir avant de commander."
       },
       "blocks": {
-        "true_size": {
-          "type": "feature",
-          "settings": {
-            "label": "Vraie pointure",
-            "description": "Coupe fidèle à la taille, vérifiée par nos guides détaillés."
-          }
-        },
-        "mesh": {
-          "type": "feature",
-          "settings": {
-            "label": "Mesh respirant",
-            "description": "Une tige technique qui laisse respirer le pied toute la journée."
-          }
-        },
-        "memory_foam": {
-          "type": "feature",
-          "settings": {
-            "label": "Semelle mémoire",
-            "description": "Une mousse qui épouse la forme du pied à chaque pas."
-          }
-        },
-        "grip": {
-          "type": "feature",
-          "settings": {
-            "label": "Quietta Grip™",
-            "description": "Une semelle texturée conçue pour les sols difficiles."
-          }
-        }
+        "q1": { "type": "item", "settings": { "question": "Est-ce que la pointure correspond à ma taille habituelle ?", "answer": "Oui, nos modèles taillent normalement. Consultez notre guide des tailles pour vérifier votre correspondance exacte selon votre pays." } },
+        "q2": { "type": "item", "settings": { "question": "Les chaussures antidérapantes sont-elles vraiment efficaces sur sol gras ?", "answer": "Notre semelle Quietta Grip™ a été testée sur surfaces grasses et humides, typiques des cuisines professionnelles et environnements de restauration." } },
+        "q3": { "type": "item", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "Les commandes sont expédiées sous 1 à 3 jours ouvrés. Le délai standard est de 3 à 7 jours selon votre localisation." } },
+        "q4": { "type": "item", "settings": { "question": "Quelle est votre politique de retour ?", "answer": "Vous disposez de 30 jours pour retourner un article non porté, dans son emballage d'origine." } }
       },
-      "block_order": ["true_size", "mesh", "memory_foam", "grip"]
+      "block_order": ["q1", "q2", "q3", "q4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Rejoignez la communauté Quietta",
+        "subtitle": "Offres exclusives, nouveautés et conseils confort — directement dans votre boîte mail.",
+        "button_label": "S'inscrire"
+      }
+    },
+    "instagram": {
+      "type": "instagram-feed",
+      "settings": {
+        "title": "La communauté Quietta",
+        "handle": "quietta"
+      },
+      "blocks": {
+        "p1": { "type": "post" }, "p2": { "type": "post" }, "p3": { "type": "post" },
+        "p4": { "type": "post" }, "p5": { "type": "post" }, "p6": { "type": "post" }
+      },
+      "block_order": ["p1","p2","p3","p4","p5","p6"]
     }
   },
-  "order": ["hero", "featured_collections", "features"]
+  "order": [
+    "hero", "trust_badges", "featured_collections", "best_sellers",
+    "promo_banner", "before_after", "features", "about",
+    "faq", "newsletter", "instagram"
+  ]
 }

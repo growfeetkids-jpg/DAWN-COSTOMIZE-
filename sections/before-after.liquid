@@ -1,0 +1,129 @@
+{%- comment -%}
+  Section: before-after.liquid
+  Comparaison visuelle "Chaussure ordinaire vs Quietta" — slider interactif.
+{%- endcomment -%}
+
+<section class="qt-section qt-before-after">
+  <div class="qt-container">
+    <h2 class="qt-before-after__title">{{ section.settings.title | default: 'La différence Quietta' }}</h2>
+    <p class="qt-before-after__subtitle">{{ section.settings.subtitle | default: 'Ce que vous ressentez, pas seulement ce que vous voyez.' }}</p>
+
+    <div class="qt-ba-grid">
+      {% for block in section.blocks %}
+        <div class="qt-ba-card {% if block.settings.is_quietta %}qt-ba-card--after{% else %}qt-ba-card--before{% endif %}" {{ block.shopify_attributes }}>
+          <div class="qt-ba-card__label">{{ block.settings.label }}</div>
+          {% render 'image-placeholder', ratio: '4/5', label: block.settings.image_label, rounded: true %}
+          <ul class="qt-ba-card__points">
+            {% assign points = block.settings.points | split: '|' %}
+            {% for point in points %}
+              <li>
+                {% if block.settings.is_quietta %}✓{% else %}✗{% endif %}
+                {{ point | strip }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-before-after__title,
+.qt-before-after__subtitle {
+  text-align: center;
+}
+.qt-before-after__subtitle { margin-bottom: 40px; }
+
+.qt-ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.qt-ba-card {
+  border-radius: var(--qt-radius-lg);
+  overflow: hidden;
+  padding: 24px;
+  background: var(--qt-white);
+  border: 1.5px solid var(--qt-border);
+}
+.qt-ba-card--after {
+  border-color: var(--qt-terracotta);
+  background: rgba(193,99,61,0.04);
+}
+.qt-ba-card__label {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+  color: var(--qt-ink-soft);
+}
+.qt-ba-card--after .qt-ba-card__label {
+  color: var(--qt-terracotta);
+}
+.qt-ba-card__points {
+  list-style: none;
+  padding: 0; margin: 16px 0 0;
+}
+.qt-ba-card__points li {
+  font-size: 0.9rem;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--qt-border);
+  color: var(--qt-ink-soft);
+}
+.qt-ba-card--after .qt-ba-card__points li { color: var(--qt-petrol); }
+
+@media (max-width: 589px) {
+  .qt-ba-grid { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Avant / Après",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre" }
+  ],
+  "blocks": [
+    {
+      "type": "side",
+      "name": "Côté comparaison",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label (ex: Chaussure ordinaire)" },
+        { "type": "text", "id": "image_label", "label": "Label placeholder image" },
+        { "type": "checkbox", "id": "is_quietta", "label": "C'est le côté Quietta ?", "default": false },
+        { "type": "textarea", "id": "points", "label": "Points séparés par | (ex: Confort|Légèreté|Grip)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avant / Après",
+      "blocks": [
+        {
+          "type": "side",
+          "settings": {
+            "label": "Chaussure ordinaire",
+            "image_label": "Chaussure ordinaire (à générer)",
+            "is_quietta": false,
+            "points": "Semelle rigide | Pied fatigué dès midi | Peu d'amorti | Style générique"
+          }
+        },
+        {
+          "type": "side",
+          "settings": {
+            "label": "Quietta",
+            "image_label": "Quietta (à générer)",
+            "is_quietta": true,
+            "points": "Mousse mémoire sur mesure | Confort toute la journée | Quietta Grip™ | Style discret et raffiné"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

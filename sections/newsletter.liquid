@@ -1,0 +1,93 @@
+{%- comment -%}
+  Section: newsletter.liquid
+  Section newsletter pleine largeur — fond terracotta, formulaire Shopify natif.
+{%- endcomment -%}
+
+<section class="qt-newsletter">
+  <div class="qt-container qt-newsletter__inner">
+    <div class="qt-newsletter__content">
+      <h2>{{ section.settings.title | default: 'Rejoignez la communauté Quietta' }}</h2>
+      <p>{{ section.settings.subtitle | default: 'Offres exclusives, nouveautés et conseils confort — directement dans votre boîte mail.' }}</p>
+    </div>
+
+    {% form 'customer', class: 'qt-newsletter__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="qt-newsletter__field">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder | default: 'Votre adresse email' }}" required aria-label="Email">
+        <button type="submit" class="qt-btn qt-btn--primary">
+          {{ section.settings.button_label | default: "S'inscrire" }}
+        </button>
+      </div>
+      {% if form.posted_successfully? %}
+        <p class="qt-newsletter__success">Merci ! Vous êtes bien inscrit(e).</p>
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-newsletter {
+  background: var(--qt-petrol);
+  padding-block: clamp(48px, 6vw, 80px);
+}
+.qt-newsletter__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.qt-newsletter__content h2 {
+  color: var(--qt-cream);
+  margin-bottom: 8px;
+}
+.qt-newsletter__content p {
+  color: rgba(242,234,216,0.75);
+  margin: 0;
+}
+.qt-newsletter__field {
+  display: flex;
+  gap: 10px;
+}
+.qt-newsletter__field input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(242,234,216,0.3);
+  background: transparent;
+  color: var(--qt-cream);
+  font-size: 0.95rem;
+  font-family: var(--qt-font-body);
+}
+.qt-newsletter__field input::placeholder { color: rgba(242,234,216,0.45); }
+.qt-newsletter__field input:focus {
+  outline: none;
+  border-color: var(--qt-cream);
+}
+.qt-newsletter__field .qt-btn--primary {
+  background: var(--qt-terracotta);
+  white-space: nowrap;
+}
+.qt-newsletter__success {
+  color: var(--qt-cream);
+  font-size: 0.88rem;
+  margin-top: 12px;
+}
+
+@media (max-width: 749px) {
+  .qt-newsletter__inner { grid-template-columns: 1fr; gap: 24px; }
+  .qt-newsletter__field { flex-direction: column; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder email" },
+    { "type": "text", "id": "button_label", "label": "Texte bouton" }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

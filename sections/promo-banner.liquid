@@ -1,0 +1,70 @@
+{%- comment -%}
+  Section: promo-banner.liquid
+  Banner pleine largeur avec texte superposé et CTA.
+{%- endcomment -%}
+
+<section class="qt-promo-banner">
+  <div class="qt-promo-banner__media">
+    {% render 'image-placeholder', ratio: '21/9', label: 'Banner promo (à générer via Higgsfield)' %}
+  </div>
+  <div class="qt-promo-banner__overlay">
+    <div class="qt-container qt-promo-banner__content">
+      <p class="qt-promo-banner__eyebrow">{{ section.settings.eyebrow | default: 'Nouveauté' }}</p>
+      <h2>{{ section.settings.headline | default: 'Confort professionnel. Style discret.' }}</h2>
+      <p class="qt-promo-banner__sub">{{ section.settings.subtitle | default: 'Découvrez la collection Anti-Dérapant Quietta Grip™' }}</p>
+      <a href="{{ section.settings.cta_url | default: '/collections/anti-derapant' }}" class="qt-btn qt-btn--accent">
+        {{ section.settings.cta_label | default: 'Voir la collection' }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-promo-banner {
+  position: relative;
+  overflow: hidden;
+}
+.qt-promo-banner__media .qt-placeholder {
+  min-height: 420px;
+}
+.qt-promo-banner__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(44,74,82,0.72) 0%, rgba(44,74,82,0.1) 100%);
+}
+.qt-promo-banner__content {
+  color: var(--qt-white);
+  max-width: 520px;
+}
+.qt-promo-banner__eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--qt-cream);
+  margin-bottom: 10px;
+}
+.qt-promo-banner__content h2 {
+  color: var(--qt-white);
+  margin-bottom: 12px;
+}
+.qt-promo-banner__sub {
+  color: rgba(242,234,216,0.85);
+  margin-bottom: 28px;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Banner promo",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit texte au-dessus" },
+    { "type": "text", "id": "headline", "label": "Titre" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre" },
+    { "type": "text", "id": "cta_label", "label": "Texte bouton" },
+    { "type": "url", "id": "cta_url", "label": "Lien bouton" }
+  ],
+  "presets": [{ "name": "Banner promo" }]
+}
+{% endschema %}

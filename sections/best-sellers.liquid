@@ -1,0 +1,97 @@
+{%- comment -%}
+  Section: best-sellers.liquid
+  Grille de produits mis en avant — tirés d'une collection choisie dans le customizer.
+{%- endcomment -%}
+
+<section class="qt-section qt-best-sellers">
+  <div class="qt-container">
+    <div class="qt-best-sellers__header">
+      <h2>{{ section.settings.title | default: 'Nos best-sellers' }}</h2>
+      <a href="{{ section.settings.view_all_url | default: '/collections/all' }}" class="qt-best-sellers__link">
+        Voir tout →
+      </a>
+    </div>
+
+    <div class="qt-grid qt-grid--4">
+      {% assign featured = section.settings.collection.products | default: collections.all.products %}
+      {% for product in featured limit: section.settings.products_count %}
+        <a href="{{ product.url }}" class="qt-product-card">
+          {% render 'image-placeholder', ratio: '3/4', label: product.title, rounded: true %}
+          {% if product.compare_at_price > product.price %}
+            <span class="qt-product-card__badge">Promo</span>
+          {% endif %}
+          <h3 class="qt-product-card__title">{{ product.title }}</h3>
+          <div class="qt-product-card__prices">
+            {% if product.compare_at_price > product.price %}
+              <span class="qt-product-card__price--compare">{{ product.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="qt-product-card__price">{{ product.price | money }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-best-sellers__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.qt-best-sellers__link {
+  font-size: 0.88rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+}
+.qt-product-card {
+  display: block;
+  position: relative;
+}
+.qt-product-card__badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: var(--qt-terracotta);
+  color: var(--qt-white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.qt-product-card__title {
+  margin-top: 14px;
+  margin-bottom: 4px;
+  font-size: 0.98rem;
+}
+.qt-product-card__prices {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.qt-product-card__price {
+  font-size: 0.9rem;
+  color: var(--qt-terracotta);
+  font-weight: 600;
+}
+.qt-product-card__price--compare {
+  font-size: 0.82rem;
+  color: var(--qt-ink-soft);
+  text-decoration: line-through;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Best-sellers",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Nos best-sellers" },
+    { "type": "collection", "id": "collection", "label": "Collection source" },
+    { "type": "range", "id": "products_count", "label": "Nombre de produits", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "url", "id": "view_all_url", "label": "Lien 'Voir tout'" }
+  ],
+  "presets": [{ "name": "Best-sellers" }]
+}
+{% endschema %}

@@ -1,0 +1,105 @@
+{%- comment -%}
+  Section: trust-badges.liquid
+  Bande de réassurance horizontale — 4 badges configurable.
+{%- endcomment -%}
+
+<section class="qt-trust">
+  <div class="qt-container qt-trust__inner">
+    {% for block in section.blocks %}
+      <div class="qt-trust__badge" {{ block.shopify_attributes }}>
+        <div class="qt-trust__icon">
+          {% case block.settings.icon %}
+            {% when 'delivery' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M1 3h15v13H1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 8h4l3 4v4h-7V8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="5.5" cy="18.5" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="18.5" cy="18.5" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+            {% when 'return' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 10h13a5 5 0 0 1 0 10H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {% when 'quality' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5L7 14.5 2 9.5l7-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            {% when 'payment' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.5"/></svg>
+            {% else %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {% endcase %}
+        </div>
+        <div>
+          <strong>{{ block.settings.title }}</strong>
+          <p>{{ block.settings.subtitle }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.qt-trust {
+  background: var(--qt-white);
+  border-top: 1px solid var(--qt-border);
+  border-bottom: 1px solid var(--qt-border);
+  padding-block: 32px;
+}
+.qt-trust__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.qt-trust__badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.qt-trust__icon {
+  color: var(--qt-terracotta);
+  flex-shrink: 0;
+}
+.qt-trust__badge strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--qt-petrol);
+  margin-bottom: 2px;
+}
+.qt-trust__badge p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: var(--qt-ink-soft);
+}
+
+@media (max-width: 749px) {
+  .qt-trust__inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 449px) {
+  .qt-trust__inner { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icône", "options": [
+          { "value": "delivery", "label": "Livraison" },
+          { "value": "return", "label": "Retour" },
+          { "value": "quality", "label": "Qualité" },
+          { "value": "payment", "label": "Paiement" }
+        ], "default": "delivery" },
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "text", "id": "subtitle", "label": "Sous-titre" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "delivery", "title": "Livraison gratuite", "subtitle": "Dès 50$ d'achat" } },
+        { "type": "badge", "settings": { "icon": "return", "title": "30 jours pour retourner", "subtitle": "Article non porté, sans question" } },
+        { "type": "badge", "settings": { "icon": "quality", "title": "Qualité testée", "subtitle": "Matériaux pour un usage intensif" } },
+        { "type": "badge", "settings": { "icon": "payment", "title": "Paiement sécurisé", "subtitle": "Visa, Mastercard, PayPal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
